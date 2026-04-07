@@ -2,6 +2,7 @@ node_modules/
 testing/
 db_scripts/
 tmp/
+logs/
 .env
 .log
 .DS_Store

@@ -10,7 +10,9 @@ async function startServer() {
 		if (!utilsService.validateCORS(req.headers.origin))
 			return utilsService.sendJSON(res, 200, { ok: true, message: "Invalid CORS." });
 
-		if (req.method === "GET" && req.url === "/api/index")
+		const url = new URL(req.url, `https://${req.headers.host}`);
+
+		if (req.method === "GET" && url.pathname === "/api/index")
 			return utilsService.sendJSON(res, 200, { ok: true, message: "Server OK." });
 
 		return utilsService.sendJSON(res, 404, { ok: false, message: "Route not found." });

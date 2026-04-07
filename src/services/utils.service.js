@@ -57,6 +57,8 @@ async function getCertOptions() {
 }
 
 function validateCORS(res, origin) {
+	if (!origin) return true;
+
 	const goodOrigins = process.env.ALLOWED_ORIGINS.split(",");
 	const allowedOrigins = new Set(goodOrigins);
 
