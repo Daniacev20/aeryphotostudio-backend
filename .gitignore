@@ -3,6 +3,7 @@ testing/
 db_scripts/
 tmp/
 logs/
+src/seeds/
 .env
 .log
 .DS_Store
