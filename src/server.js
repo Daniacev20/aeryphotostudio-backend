@@ -9,16 +9,23 @@ async function startServer() {
 
 	const PORT = Number(process.env.PORT);
 	const routersFiles = await utilsService.getDirFilesPaths("routers");
-	let routers = [];
+	const routers = [];
 
-	const server = http.createServer((req, res) => {
+	const server = http.createServer(async (req, res) => {
 		if (!utilsService.validateCORS(req.headers.origin))
-			return utilsService.sendJSON(res, 200, { ok: true, message: "Invalid CORS." });
+			utilsService.sendJSON(res, 200, { ok: true, message: "Invalid CORS." });
 
-		const url = new URL(req.url, `https://${req.headers.host}`);
+		for (const file of routersFiles) {
+			if (!file.endsWith(".routes.js")) continue;
+			
+			const f = require(file);
 
-		if (req.method === "GET" && url.pathname === "/api/index")
-			return utilsService.sendJSON(res, 200, { ok: true, message: "Server OK." });
+			if (typeof f === "function")
+				routers.push(f);
+		}
+
+		for (const router of routers)
+			if (await router(req, res)) return;
 
 		return utilsService.sendJSON(res, 404, { ok: false, message: "Route not found." });
 	});
