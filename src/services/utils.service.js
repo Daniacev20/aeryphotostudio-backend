@@ -1,7 +1,7 @@
 // utils.service.js
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 function getDirFilesPaths(dir) {
 	return new Promise((resolve, reject) => {
