@@ -24,6 +24,9 @@ class BookingsController {
 			datetime: formattedDate.toISOString(),
 			name: user.username,
 			phone: user.phone,
+			email: user.email,
+			altPhone: user.altPhone, // from client
+			altEmail: user.altEmail, // from client
 			userId: new ObjectId(user.id)
 		}
 
@@ -49,7 +52,7 @@ class BookingsController {
 		}
 
 		return {
-			ok: false,
+			ok: true,
 			data: "Appointment not found."
 		}
 	}

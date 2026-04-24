@@ -17,8 +17,7 @@ function getDirFilesPaths(dir) {
 			const absolutes = list.map(f => {
 				if (is_src)
 					return path.resolve(__dirname, dir, f);
-				else
-					return path.resolve(__dirname, "../", dir, f);
+				return path.resolve(__dirname, "../", dir, f);
 			});
 
 			return resolve(absolutes);
